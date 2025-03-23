@@ -40,6 +40,7 @@ extern "C"
 	{
 		_njSetMaterial_h.Hook(_njSetMaterial_r);
 		WriteData<6>((void*)0x43954B, 0x90); // Prevent the game from forcing the double sided flag arbitrarly.
+		WriteData<6>((void*)0x408819, 0x90); // Prevent the game from forcing the double sided flag for late rendering
 
 		PatchPolybuff(); // Patch quad and strips parser to have correct winding order
 	}
