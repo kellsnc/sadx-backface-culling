@@ -3,9 +3,10 @@
 #include "SADXModLoader.h"
 #include "FastFunctionHook.hpp"
 #include "polybuff.h"
+#include "materials.h"
 
 DataPointer(IDirect3DDevice8*, _st_d3d_device_, 0x03D128B0);
-DataPointer(int, _nj_basic_cull_, 0x3D08490); 
+DataPointer(int, _nj_basic_cull_, 0x3D08490);
 
 FastThiscallHook<void, NJS_MATERIAL*> _njSetMaterial_h(0x784850);
 
@@ -43,6 +44,7 @@ extern "C"
 		WriteData<6>((void*)0x408819, 0x90); // Prevent the game from forcing the double sided flag for late rendering
 
 		PatchPolybuff(); // Patch quad and strips parser to have correct winding order
+		PatchMaterials();
 	}
 
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer };
