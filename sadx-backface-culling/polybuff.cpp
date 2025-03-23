@@ -161,6 +161,7 @@ void _nj_basic_df_v_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -175,7 +176,7 @@ void _nj_basic_df_v_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -216,7 +217,7 @@ void _nj_basic_df_v_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-		if (!flip != !(current_len & 1))
+		if (single_sided && !flip != !(current_len & 1))
 		{
 			pool->position = points[vert_index];
 			pool->diffuse = nj_basic_color_.color;
@@ -292,6 +293,7 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -306,7 +308,7 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -349,7 +351,7 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-		if (!flip != !(current_len & 1))
+		if (single_sided && !flip != !(current_len & 1))
 		{
 			pool->position = points[vert_index];
 			pool->u = (Float)vertuv->u / 255.0f;
@@ -431,6 +433,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -445,7 +448,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -488,7 +491,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
@@ -522,7 +525,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->diffuse = vc->color;
@@ -610,6 +613,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -624,7 +628,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -670,7 +674,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->u = (Float)vertuv->u / 255.0f;
@@ -711,7 +715,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->u = (Float)vertuv->u / 255.0f;
@@ -783,6 +787,8 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
+
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
 	{
@@ -790,7 +796,7 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -837,7 +843,7 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-		if (!flip != !(current_len & 1))
+		if (single_sided && !flip != !(current_len & 1))
 		{
 			pool->position = points[vert_index];
 			pool->normal = normals[vert_index];
@@ -913,6 +919,7 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -927,7 +934,7 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -971,7 +978,7 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-		if (!flip != !(current_len & 1))
+		if (single_sided && !flip != !(current_len & 1))
 		{
 			pool->position = points[vert_index];
 			pool->normal = normals[vert_index];
@@ -1056,6 +1063,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -1070,7 +1078,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -1114,7 +1122,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
@@ -1151,7 +1159,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
@@ -1242,6 +1250,7 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POI
 {
 	// Count primitives
 	int primitive_count = 0;
+	bool single_sided = _nj_basic_cull_ != D3DCULL_NONE;
 
 	Sint16* strip = meshset->meshes;
 	for (int i = 0; i < meshset->nbMesh; ++i)
@@ -1256,7 +1265,7 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POI
 
 		// If culling must be reversed (flip flag xor odd length), reserve space for degenerate vertex
 		bool flip = (*strip & 0x8000);
-		if (!flip != !(primitive_count & 1))
+		if (single_sided && !flip != !(primitive_count & 1))
 		{
 			primitive_count += 1;
 		}
@@ -1303,7 +1312,7 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POI
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
@@ -1347,7 +1356,7 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POI
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (!flip != !(current_len & 1))
+			if (single_sided && !flip != !(current_len & 1))
 			{
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
