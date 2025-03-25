@@ -100,6 +100,20 @@ DataPointer(int, _nj_basic_cull_, 0x3D08490);
 DataPointer(int, _nj_basic_attr_, 0x3D08498);
 DataArray(_sSTVERTEXSTREAM, _st_d3d_vs_, 0x3D0FE00, vs_num);
 
+DataArray(VBufferFuncPtr, _nj_basic_df_v_, 0x389D690, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vt_, 0x389D6A0, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vc_, 0x389D6B0, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vtc_, 0x389D6C0, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vn_, 0x389D6D0, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vnt_, 0x389D6E0, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vnc_, 0x389D6F0, 4);
+DataArray(VBufferFuncPtr, _nj_basic_df_vntc_, 0x389D700, 4);
+
+DataArray(VBufferFuncPtr, _nj_basic_rf_v_, 0x389D750, 4);
+DataArray(VBufferFuncPtr, _nj_basic_rf_vt_, 0x389D760, 4);
+DataArray(VBufferFuncPtr, _nj_basic_rf_vn_, 0x389D770, 4);
+DataArray(VBufferFuncPtr, _nj_basic_rf_vnt_, 0x389D780, 4);
+
 FastcallFunctionPointer(void, stVSReady, (_sSTVERTEXSTREAM*), 0x794600);
 FastcallFunctionPointer(void*, stVSLock, (_sSTVERTEXSTREAM* buf, Uint32 size, Uint32 cull), 0x794630);
 FastcallFunctionPointer(void*, stVSLockList, (_sSTVERTEXSTREAM* buf, Uint32 size, Uint32 cull), 0x7946C0);
@@ -118,7 +132,7 @@ void stVBUnlock(_sSTVERTEXBUFFER* vbuf)
 	}
 }
 
-void _nj_basic_df_v_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_v_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	Uint32 primitive_count = 6 * meshset->nbMesh;
 
@@ -157,7 +171,7 @@ void _nj_basic_df_v_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* n
 	stVSDrawList(&_st_d3d_vs_[vs_cs_d8]);
 }
 
-void _nj_basic_df_v_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -242,7 +256,7 @@ void _nj_basic_df_v_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3
 	stVSDraw(&_st_d3d_vs_[vs_cs_d8]);
 }
 
-void _nj_basic_df_vt_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vt_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	Uint32 primitive_count = 6 * meshset->nbMesh;
 
@@ -289,7 +303,7 @@ void _nj_basic_df_vt_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* 
 	stVSDrawList(&_st_d3d_vs_[vs_cs_uvn_d8]);
 }
 
-void _nj_basic_df_vt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -380,7 +394,7 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 	stVSDraw(&_st_d3d_vs_[vs_cs_uvn_d8]);
 }
 
-void _nj_basic_df_vc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vc_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	stVSReady(&_st_d3d_vs_[vs_cs_d8]);
 	FVF_CS* pool = (FVF_CS*)stVSLockList(&_st_d3d_vs_[vs_cs_d8], 6 * meshset->nbMesh, _nj_basic_cull_);
@@ -429,7 +443,7 @@ void _nj_basic_df_vc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* 
 	stVSDrawList(&_st_d3d_vs_[vs_cs_d8]);
 }
 
-void _nj_basic_df_vc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -551,7 +565,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 	stVSDraw(&_st_d3d_vs_[vs_cs_d8]);
 }
 
-void _nj_basic_df_vtc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vtc_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	stVSReady(&_st_d3d_vs_[vs_cs_uvn_d8]);
 	FVF_CS_UVN* pool = (FVF_CS_UVN*)stVSLockList(&_st_d3d_vs_[vs_cs_uvn_d8], 6 * meshset->nbMesh, _nj_basic_cull_);
@@ -609,7 +623,7 @@ void _nj_basic_df_vtc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3*
 	stVSDrawList(&_st_d3d_vs_[vs_cs_uvn_d8]);
 }
 
-void _nj_basic_df_vtc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -746,7 +760,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 	stVSDraw(&_st_d3d_vs_[vs_cs_uvn_d8]);
 }
 
-void _nj_basic_df_vn_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vn_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	stVSReady(&_st_d3d_vs_[vs_cs_n_d8]);
 	FVF_CS_N* pool = (FVF_CS_N*)stVSLockList(&_st_d3d_vs_[vs_cs_n_d8], 6 * meshset->nbMesh, _nj_basic_cull_);
@@ -783,7 +797,7 @@ void _nj_basic_df_vn_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* 
 	stVSDrawList(&_st_d3d_vs_[vs_cs_n_d8]);
 }
 
-void _nj_basic_df_vn_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -869,7 +883,7 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT
 	stVSDraw(&_st_d3d_vs_[vs_cs_n_d8]);
 }
 
-void _nj_basic_df_vnt_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vnt_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	stVSReady(&_st_d3d_vs_[vs_cs_uvn_n_d8]);
 	FVF_CS_UVN_N* pool = (FVF_CS_UVN_N*)stVSLockList(&_st_d3d_vs_[vs_cs_uvn_n_d8], 6 * meshset->nbMesh, _nj_basic_cull_);
@@ -915,7 +929,7 @@ void _nj_basic_df_vnt_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3*
 	stVSDrawList(&_st_d3d_vs_[vs_cs_uvn_n_d8]);
 }
 
-void _nj_basic_df_vnt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -1009,7 +1023,7 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 	stVSDraw(&_st_d3d_vs_[vs_cs_uvn_n_d8]);
 }
 
-void _nj_basic_df_vnc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vnc_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	stVSReady(&_st_d3d_vs_[vs_cs_n_d8]);
 	FVF_CS_N* pool = (FVF_CS_N*)stVSLockList(&_st_d3d_vs_[vs_cs_n_d8], 6 * meshset->nbMesh, _nj_basic_cull_);
@@ -1059,7 +1073,7 @@ void _nj_basic_df_vnc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3*
 	stVSDrawList(&_st_d3d_vs_[vs_cs_n_d8]);
 }
 
-void _nj_basic_df_vnc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -1187,7 +1201,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POIN
 	stVSDraw(&_st_d3d_vs_[vs_cs_n_d8]);
 }
 
-void _nj_basic_df_vntc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vntc_quad(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	stVSReady(&_st_d3d_vs_[vs_cs_uvn_n_d8]);
 	FVF_CS_UVN_N* pool = (FVF_CS_UVN_N*)stVSLockList(&_st_d3d_vs_[vs_cs_uvn_n_d8], 6 * meshset->nbMesh, _nj_basic_cull_);
@@ -1246,7 +1260,7 @@ void _nj_basic_df_vntc_quad(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3
 	stVSDrawList(&_st_d3d_vs_[vs_cs_uvn_n_d8]);
 }
 
-void _nj_basic_df_vntc_trimesh(NJS_MESHSET* meshset, NJS_POINT3* points, NJS_POINT3* normals)
+void _nj_basic_df_vntc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_POINT3* normals)
 {
 	// Count primitives
 	int primitive_count = 0;
@@ -2363,6 +2377,16 @@ void PatchPolybuff()
 	WriteJump((void*)0x784620, _nj_basic_df_vntc_quad);
 	WriteJump((void*)0x784060, _nj_basic_df_vntc_trimesh);
 
+	// N-sided polygon type
+	_nj_basic_df_v_[NJD_MESHSET_N >> 14] = _nj_basic_df_v_trimesh;
+	_nj_basic_df_vt_[NJD_MESHSET_N >> 14] = _nj_basic_df_vt_trimesh;
+	_nj_basic_df_vc_[NJD_MESHSET_N >> 14] = _nj_basic_df_vc_trimesh;
+	_nj_basic_df_vtc_[NJD_MESHSET_N >> 14] = _nj_basic_df_vtc_trimesh;
+	_nj_basic_df_vn_[NJD_MESHSET_N >> 14] = _nj_basic_df_vn_trimesh;
+	_nj_basic_df_vnt_[NJD_MESHSET_N >> 14] = _nj_basic_df_vnt_trimesh;
+	_nj_basic_df_vnc_[NJD_MESHSET_N >> 14] = _nj_basic_df_vnc_trimesh;
+	_nj_basic_df_vntc_[NJD_MESHSET_N >> 14] = _nj_basic_df_vntc_trimesh;
+
 	// Fix for static rendering
 	WriteJump((void*)0x785760, _nj_basic_rf_v_quad);
 	WriteJump((void*)0x785440, _nj_basic_rf_v_trimesh);
@@ -2372,4 +2396,10 @@ void PatchPolybuff()
 	WriteJump((void*)0x7860A0, _nj_basic_rf_vn_trimesh);
 	WriteJump((void*)0x786D00, _nj_basic_rf_vnt_quad);
 	WriteJump((void*)0x786700, _nj_basic_rf_vnt_trimesh);
+
+	// N-sided polygon type
+	_nj_basic_rf_v_[NJD_MESHSET_N >> 14] = _nj_basic_rf_v_trimesh;
+	_nj_basic_rf_vt_[NJD_MESHSET_N >> 14] = _nj_basic_rf_vt_trimesh;
+	_nj_basic_rf_vn_[NJD_MESHSET_N >> 14] = _nj_basic_rf_vn_trimesh;
+	_nj_basic_rf_vnt_[NJD_MESHSET_N >> 14] = _nj_basic_rf_vnt_trimesh;
 }
