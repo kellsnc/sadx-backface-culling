@@ -220,14 +220,10 @@ void _nj_basic_df_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 		// Add degenerate triangles when merging strips
 		if (i)
 		{
-			pool[0] = pool[-1];
-			++pool;
-
 			pool->position = points[vert_index];
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-
-			current_len += 2;
+			++current_len;
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -236,17 +232,26 @@ void _nj_basic_df_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 			pool->position = points[vert_index];
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-			current_len += 1;
+			++current_len;
 		}
 
 		// Write strip
 		for (Int j = 0; j < len; j++)
 		{
 			vert_index = meshset->meshes[mesh_index++];
-			vertuv = &meshset->vertuv[tex_index++];
 			pool->position = points[vert_index];
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
+		}
+
+		// Add degenerate triangle when merging strips
+		if (i != meshset->nbMesh - 1)
+		{
+			vert_index = meshset->meshes[mesh_index - 1];
+			pool->position = points[vert_index];
+			pool->diffuse = nj_basic_color_.color;
+			++pool;
+			++current_len;
 		}
 
 		current_len += len;
@@ -352,16 +357,12 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 		// Add degenerate triangles when merging strips
 		if (i)
 		{
-			pool[0] = pool[-1];
-			++pool;
-
 			pool->position = points[vert_index];
 			pool->u = (Float)vertuv->u / 255.0f;
 			pool->v = (Float)vertuv->v / 255.0f;
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-
-			current_len += 2;
+			++current_len;
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -372,7 +373,7 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 			pool->v = (Float)vertuv->v / 255.0f;
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-			current_len += 1;
+			++current_len;
 		}
 
 		// Write strip
@@ -385,6 +386,19 @@ void _nj_basic_df_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 			pool->v = (Float)vertuv->v / 255.0f;
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
+		}
+
+		// Add degenerate triangle when merging strips
+		if (i != meshset->nbMesh - 1)
+		{
+			vert_index = meshset->meshes[mesh_index - 1];
+			vertuv = &meshset->vertuv[tex_index - 1];
+			pool->position = points[vert_index];
+			pool->u = (Float)vertuv->u / 255.0f;
+			pool->v = (Float)vertuv->v / 255.0f;
+			pool->diffuse = nj_basic_color_.color;
+			++pool;
+			++current_len;
 		}
 
 		current_len += len;
@@ -494,14 +508,10 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -510,7 +520,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				pool->position = points[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -521,6 +531,17 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				pool->position = points[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->diffuse = _njCalcOffsetMaterial(vc).color;
+				++pool;
+				++current_len;
 			}
 		}
 		else
@@ -528,14 +549,10 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->diffuse = vc->color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -544,7 +561,7 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				pool->position = points[vert_index];
 				pool->diffuse = vc->color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -555,6 +572,17 @@ void _nj_basic_df_vc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				pool->position = points[vert_index];
 				pool->diffuse = vc->color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->diffuse = vc->color;
+				++pool;
+				++current_len;
 			}
 		}
 
@@ -675,16 +703,12 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->u = (Float)vertuv->u / 255.0f;
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -695,7 +719,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -709,6 +733,20 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vertuv = &meshset->vertuv[tex_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->u = (Float)vertuv->u / 255.0f;
+				pool->v = (Float)vertuv->v / 255.0f;
+				pool->diffuse = _njCalcOffsetMaterial(vc).color;
+				++pool;
+				++current_len;
 			}
 		}
 		else
@@ -716,16 +754,12 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->u = (Float)vertuv->u / 255.0f;
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = vc->color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -736,7 +770,7 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = vc->color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -750,6 +784,20 @@ void _nj_basic_df_vtc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = vc->color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vertuv = &meshset->vertuv[tex_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->u = (Float)vertuv->u / 255.0f;
+				pool->v = (Float)vertuv->v / 255.0f;
+				pool->diffuse = vc->color;
+				++pool;
+				++current_len;
 			}
 		}
 
@@ -845,15 +893,11 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 		// Add degenerate triangles when merging strips
 		if (i)
 		{
-			pool[0] = pool[-1];
-			++pool;
-
 			pool->position = points[vert_index];
 			pool->normal = normals[vert_index];
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-
-			current_len += 2;
+			++current_len;
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -863,7 +907,7 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 			pool->normal = normals[vert_index];
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-			current_len += 1;
+			++current_len;
 		}
 
 		// Write strip
@@ -874,6 +918,17 @@ void _nj_basic_df_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 			pool->normal = normals[vert_index];
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
+		}
+
+		// Add degenerate triangle when merging strips
+		if (i != meshset->nbMesh - 1)
+		{
+			vert_index = meshset->meshes[mesh_index - 1];
+			pool->position = points[vert_index];
+			pool->normal = normals[vert_index];
+			pool->diffuse = nj_basic_color_.color;
+			++pool;
+			++current_len;
 		}
 
 		current_len += len;
@@ -978,17 +1033,13 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 		// Add degenerate triangles when merging strips
 		if (i)
 		{
-			pool[0] = pool[-1];
-			++pool;
-
 			pool->position = points[vert_index];
 			pool->normal = normals[vert_index];
 			pool->u = (Float)vertuv->u / 255.0f;
 			pool->v = (Float)vertuv->v / 255.0f;
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-
-			current_len += 2;
+			++current_len;
 		}
 
 		// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1000,7 +1051,7 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 			pool->v = (Float)vertuv->v / 255.0f;
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
-			current_len += 1;
+			++current_len;
 		}
 
 		// Write strip
@@ -1014,6 +1065,20 @@ void _nj_basic_df_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 			pool->v = (Float)vertuv->v / 255.0f;
 			pool->diffuse = nj_basic_color_.color;
 			++pool;
+		}
+
+		// Add degenerate triangle when merging strips
+		if (i != meshset->nbMesh - 1)
+		{
+			vert_index = meshset->meshes[mesh_index - 1];
+			vertuv = &meshset->vertuv[tex_index - 1];
+			pool->position = points[vert_index];
+			pool->normal = normals[vert_index];
+			pool->u = (Float)vertuv->u / 255.0f;
+			pool->v = (Float)vertuv->v / 255.0f;
+			pool->diffuse = nj_basic_color_.color;
+			++pool;
+			++current_len;
 		}
 
 		current_len += len;
@@ -1124,15 +1189,11 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1142,7 +1203,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->normal = normals[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -1154,6 +1215,18 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->normal = normals[vert_index];
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->normal = normals[vert_index];
+				pool->diffuse = _njCalcOffsetMaterial(vc).color;
+				++pool;
+				++current_len;
 			}
 		}
 		else
@@ -1161,15 +1234,11 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
 				pool->diffuse = vc->color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1179,7 +1248,7 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->normal = normals[vert_index];
 				pool->diffuse = vc->color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -1191,6 +1260,18 @@ void _nj_basic_df_vnc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				pool->normal = normals[vert_index];
 				pool->diffuse = vc->color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->normal = normals[vert_index];
+				pool->diffuse = vc->color;
+				++pool;
+				++current_len;
 			}
 		}
 
@@ -1312,29 +1393,13 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJ
 			// Add degenerate triangles when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
 				pool->u = (Float)vertuv->u / 255.0f;
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
-
-				current_len += 2;
-			}
-
-			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
-			if (single_sided && !flip != !(current_len & 1))
-			{
-				pool->position = points[vert_index];
-				pool->normal = normals[vert_index];
-				pool->u = (Float)vertuv->u / 255.0f;
-				pool->v = (Float)vertuv->v / 255.0f;
-				pool->diffuse = _njCalcOffsetMaterial(vc).color;
-				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -1349,24 +1414,35 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJ
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = _njCalcOffsetMaterial(vc).color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vertuv = &meshset->vertuv[tex_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->normal = normals[vert_index];
+				pool->u = (Float)vertuv->u / 255.0f;
+				pool->v = (Float)vertuv->v / 255.0f;
+				pool->diffuse = _njCalcOffsetMaterial(vc).color;
+				++pool;
+				++current_len;
 			}
 		}
 		else
 		{
-			// Add degenerate triangles when merging strips
+			// Add degenerate triangle when merging strips
 			if (i)
 			{
-				pool[0] = pool[-1];
-				++pool;
-
 				pool->position = points[vert_index];
 				pool->normal = normals[vert_index];
 				pool->u = (Float)vertuv->u / 255.0f;
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = vc->color;
 				++pool;
-
-				current_len += 2;
+				++current_len;
 			}
 
 			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1378,7 +1454,7 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJ
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = vc->color;
 				++pool;
-				current_len += 1;
+				++current_len;
 			}
 
 			// Write strip
@@ -1393,6 +1469,21 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJ
 				pool->v = (Float)vertuv->v / 255.0f;
 				pool->diffuse = vc->color;
 				++pool;
+			}
+
+			// Add degenerate triangle when merging strips
+			if (i != meshset->nbMesh - 1)
+			{
+				vert_index = meshset->meshes[mesh_index - 1];
+				vertuv = &meshset->vertuv[tex_index - 1];
+				vc = &meshset->vertcolor[tex_index - 1];
+				pool->position = points[vert_index];
+				pool->normal = normals[vert_index];
+				pool->u = (Float)vertuv->u / 255.0f;
+				pool->v = (Float)vertuv->v / 255.0f;
+				pool->diffuse = vc->color;
+				++pool;
+				++current_len;
 			}
 		}
 
@@ -1538,14 +1629,10 @@ void _nj_basic_rf_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->diffuse = vc->color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1554,7 +1641,7 @@ void _nj_basic_rf_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 					pool->position = points[vert_index];
 					pool->diffuse = vc->color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
@@ -1565,6 +1652,17 @@ void _nj_basic_rf_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 					pool->position = points[vert_index];
 					pool->diffuse = vc->color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					vc = &meshset->vertcolor[tex_index - 1];
+					pool->position = points[vert_index];
+					pool->diffuse = vc->color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -1584,14 +1682,10 @@ void _nj_basic_rf_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1600,7 +1694,7 @@ void _nj_basic_rf_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 					pool->position = points[vert_index];
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
@@ -1610,6 +1704,16 @@ void _nj_basic_rf_v_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_P
 					pool->position = points[vert_index];
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					pool->position = points[vert_index];
+					pool->diffuse = nj_basic_diff_.color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -1773,16 +1877,12 @@ void _nj_basic_rf_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->u = (Float)vertuv->u / 255.0f;
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = vc->color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1793,7 +1893,7 @@ void _nj_basic_rf_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = vc->color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
@@ -1807,6 +1907,20 @@ void _nj_basic_rf_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = vc->color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					vertuv = &meshset->vertuv[tex_index - 1];
+					vc = &meshset->vertcolor[tex_index - 1];
+					pool->position = points[vert_index];
+					pool->u = (Float)vertuv->u / 255.0f;
+					pool->v = (Float)vertuv->v / 255.0f;
+					pool->diffuse = vc->color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -1827,16 +1941,12 @@ void _nj_basic_rf_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->u = (Float)vertuv->u / 255.0f;
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -1847,7 +1957,7 @@ void _nj_basic_rf_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
@@ -1860,6 +1970,19 @@ void _nj_basic_rf_vt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					vertuv = &meshset->vertuv[tex_index - 1];
+					pool->position = points[vert_index];
+					pool->u = (Float)vertuv->u / 255.0f;
+					pool->v = (Float)vertuv->v / 255.0f;
+					pool->diffuse = nj_basic_diff_.color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -2002,21 +2125,16 @@ void _nj_basic_rf_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				mesh_index++;
 
 				Sint16 vert_index = meshset->meshes[mesh_index];
-				NJS_TEX* vertuv = &meshset->vertuv[tex_index];
 				NJS_COLOR* vc = &meshset->vertcolor[tex_index];
 
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->normal = normals[vert_index];
 					pool->diffuse = vc->color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -2026,19 +2144,30 @@ void _nj_basic_rf_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 					pool->normal = normals[vert_index];
 					pool->diffuse = vc->color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
 				for (Int j = 0; j < len; j++)
 				{
 					vert_index = meshset->meshes[mesh_index++];
-					vertuv = &meshset->vertuv[tex_index];
 					vc = &meshset->vertcolor[tex_index++];
 					pool->position = points[vert_index];
 					pool->normal = normals[vert_index];
 					pool->diffuse = vc->color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					vc = &meshset->vertcolor[tex_index - 1];
+					pool->position = points[vert_index];
+					pool->normal = normals[vert_index];
+					pool->diffuse = vc->color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -2054,20 +2183,15 @@ void _nj_basic_rf_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 				mesh_index++;
 
 				Sint16 vert_index = meshset->meshes[mesh_index];
-				NJS_TEX* vertuv = &meshset->vertuv[tex_index];
 
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->normal = normals[vert_index];
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -2077,18 +2201,28 @@ void _nj_basic_rf_vn_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS_
 					pool->normal = normals[vert_index];
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
 				for (Int j = 0; j < len; j++)
 				{
 					vert_index = meshset->meshes[mesh_index++];
-					vertuv = &meshset->vertuv[tex_index++];
 					pool->position = points[vert_index];
 					pool->normal = normals[vert_index];
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					pool->position = points[vert_index];
+					pool->normal = normals[vert_index];
+					pool->diffuse = nj_basic_diff_.color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -2254,17 +2388,13 @@ void _nj_basic_rf_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->normal = normals[vert_index];
 					pool->u = (Float)vertuv->u / 255.0f;
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = vc->color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -2276,7 +2406,7 @@ void _nj_basic_rf_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = vc->color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
@@ -2291,6 +2421,21 @@ void _nj_basic_rf_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = vc->color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					vertuv = &meshset->vertuv[tex_index - 1];
+					vc = &meshset->vertcolor[tex_index - 1];
+					pool->position = points[vert_index];
+					pool->normal = normals[vert_index];
+					pool->u = (Float)vertuv->u / 255.0f;
+					pool->v = (Float)vertuv->v / 255.0f;
+					pool->diffuse = vc->color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
@@ -2311,17 +2456,13 @@ void _nj_basic_rf_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 				// Add degenerate triangles when merging strips
 				if (i)
 				{
-					pool[0] = pool[-1];
-					++pool;
-
 					pool->position = points[vert_index];
 					pool->normal = normals[vert_index];
 					pool->u = (Float)vertuv->u / 255.0f;
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-
-					current_len += 2;
+					++current_len;
 				}
 
 				// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
@@ -2333,7 +2474,7 @@ void _nj_basic_rf_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
-					current_len += 1;
+					++current_len;
 				}
 
 				// Write strip
@@ -2347,6 +2488,20 @@ void _nj_basic_rf_vnt_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJS
 					pool->v = (Float)vertuv->v / 255.0f;
 					pool->diffuse = nj_basic_diff_.color;
 					++pool;
+				}
+
+				// Add degenerate triangle when merging strips
+				if (i != meshset->nbMesh - 1)
+				{
+					vert_index = meshset->meshes[mesh_index - 1];
+					vertuv = &meshset->vertuv[tex_index - 1];
+					pool->position = points[vert_index];
+					pool->normal = normals[vert_index];
+					pool->u = (Float)vertuv->u / 255.0f;
+					pool->v = (Float)vertuv->v / 255.0f;
+					pool->diffuse = nj_basic_diff_.color;
+					++pool;
+					++current_len;
 				}
 
 				current_len += len;
