@@ -11,7 +11,7 @@ You need the following prerequisites:
 * [SA Mod Manager](https://github.com/X-Hax/SA-Mod-Manager)
 * [Visual C++ Redistributable Runtimes (32 Bits)](https://aka.ms/vs/17/release/vc_redist.x86.exe)
 
-To install this mod, download the mod archive from [here](https://github.com/kellsnc/sadx-backface-culling/releases/latest) and drop the "sadx-multiplayer" folder into your "mods" folder. Then, enable the mod in the Mod Manager.
+Download the mod archive [here](https://github.com/kellsnc/sadx-backface-culling/releases/latest) and extract it into your "mods" folder. Then, enable the mod in the Mod Manager.
 
 ## 🤝 Contributions
 If you notice rendering issues, please report them as an [issue](https://github.com/kellsnc/sadx-backface-culling/issues) or in the dedicated post on the [X-Hax discord](https://discord.gg/gqJCF47).
