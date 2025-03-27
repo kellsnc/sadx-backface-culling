@@ -28,7 +28,14 @@ void _njSetMaterial_r(NJS_MATERIAL* material)
 	}
 	else
 	{
-		_nj_basic_cull_ = D3DCULL_CW;
+		if (njDetMatrix(_nj_current_matrix_ptr_) >= 0.0f)
+		{
+			_nj_basic_cull_ = D3DCULL_CW;
+		}
+		else
+		{
+			_nj_basic_cull_ = D3DCULL_CCW;
+		}
 	}
 
 	// The game does not set the culling mode render state for static rendering so we do it here
