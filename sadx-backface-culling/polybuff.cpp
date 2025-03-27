@@ -1402,6 +1402,18 @@ void _nj_basic_df_vntc_trimesh(NJS_MESHSET_SADX* meshset, NJS_POINT3* points, NJ
 				++current_len;
 			}
 
+			// Add degenerate vertex if culling must be reversed (flip flag xor odd length)
+			if (single_sided && !flip != !(current_len & 1))
+			{
+				pool->position = points[vert_index];
+				pool->normal = normals[vert_index];
+				pool->u = (Float)vertuv->u / 255.0f;
+				pool->v = (Float)vertuv->v / 255.0f;
+				pool->diffuse = _njCalcOffsetMaterial(vc).color;
+				++pool;
+				++current_len;
+			}
+
 			// Write strip
 			for (Int j = 0; j < len; j++)
 			{
