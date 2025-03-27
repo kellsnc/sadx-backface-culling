@@ -3,7 +3,8 @@
 #include "materials.h"
 
 DataPointer(NJS_MATERIAL, matlist_itembox_boxbody_item_panel, 0x8BE1C8);
-DataPointer(NJS_MATERIAL, matlist_sssikake_elevator_elevator, 0x2AB652C);
+DataPointer(NJS_MATERIAL, matlist_l01_wt_hebimizu_wt_hebimizu, 0x1FE4CC8);
+DataArray(NJS_MATERIAL, matlist_sssikake_elevator_elevator, 0x2AB652C, 2);
 DataArray(NJS_MATERIAL, matlist_fence00_fen01_fen01, 0x2693960, 4);
 DataArray(NJS_MATERIAL, matlist_jyotyu_kusa_kusa, 0x8C4184, 2);
 DataArray(NJS_MATERIAL, matlist_snow_saku01_saku01, 0xE604AC, 2);
@@ -21,6 +22,7 @@ DataArray(NJS_MATERIAL, matlist_newship_oya_oya, 0x27AB718, 9);
 DataArray(NJS_MATERIAL, matlist_o_emblm_emblm, 0x9740E8, 5);
 DataArray(NJS_MATERIAL, matlist_fun_funflot_funflot, 0x1A2EA70, 7);
 DataArray(NJS_MATERIAL, matlist_fun_funflot_hane, 0x1A2E638, 3);
+DataArray(NJS_MATERIAL, matlist_fence_parksaku_parksaku, 0x27A24B0, 5);
 
 DataPointer(TaskInfo, Rd_MiniCart__RdTaskInfo, 0x7E7314);
 FunctionPointer(void, Rd_MiniCart__initRound, (task* tp, void* param_p), 0x4DAB30);
@@ -39,6 +41,7 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_o_emblm_emblm[1],
 	&matlist_o_emblm_emblm[2],
 	&matlist_o_emblm_emblm[3],
+	&matlist_o_emblm_emblm[4],
 
 	// Station Square poolside parasol & glass
 	&matlist_poolparasol_poolparasol_poolparasol[1],
@@ -48,12 +51,12 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_poolparasol_poolparasol_poolparasol[10],
 	&matlist_poolparasol_poolparasol_poolparasol[11],
 
-	// Twinkle elevator in SS
-	&matlist_sssikake_elevator_elevator,
-
-	// Twinkle Park Ship
+	// Twinkle Park ship
 	&matlist_newship_oya_oya[6],
 	&matlist_newship_oya_oya[7],
+
+	// Twinkle Park gate
+	&matlist_fence_parksaku_parksaku[4],
 
 	// Speed Highway blue fence
 	&matlist_fence00_fen01_fen01[0],
@@ -65,6 +68,9 @@ NJS_MATERIAL* static_patches[] = {
 	// Lost World Mural room poles
 	&matlist_lostobj_terasu_terasu[0],
 	&matlist_lostobj_terasu_terasu[1],
+
+	// Lost World raising water
+	&matlist_l01_wt_hebimizu_wt_hebimizu,
 
 	// Ice Cap barriers
 	&matlist_snow_saku01_saku01[0],
@@ -101,8 +107,11 @@ NJS_MATERIAL* static_patches[] = {
 
 	// Hot Shelter elevator
 	&matlist_kaitendai_daidai_daidai[5],
+	
+	// Windy Valley Act 2
+	(NJS_MATERIAL*)0xb81324,
 
-	// Windy Valley Act 3 (roads)
+	// Windy Valley Act 3
 	(NJS_MATERIAL*)0xb14908,
 	(NJS_MATERIAL*)0xb14c00,
 	(NJS_MATERIAL*)0xb14c14,
@@ -169,6 +178,118 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0xb56188,
 	(NJS_MATERIAL*)0xb5619c,
 
+	// Twinkle Park Act 1
+	(NJS_MATERIAL*)0x26b9968,
+	(NJS_MATERIAL*)0x26b997c,
+	(NJS_MATERIAL*)0x26b9990,
+	(NJS_MATERIAL*)0x26bacf0,
+	(NJS_MATERIAL*)0x26bad04,
+	(NJS_MATERIAL*)0x26bad18,
+	(NJS_MATERIAL*)0x26bc3d8,
+	(NJS_MATERIAL*)0x26bc3ec,
+	(NJS_MATERIAL*)0x26bc400,
+	(NJS_MATERIAL*)0x26bdac0,
+	(NJS_MATERIAL*)0x26bdad4,
+	(NJS_MATERIAL*)0x26bdae8,
+	(NJS_MATERIAL*)0x26bf500,
+	(NJS_MATERIAL*)0x26bf514,
+	(NJS_MATERIAL*)0x26bf528,
+	(NJS_MATERIAL*)0x26bf53c,
+	(NJS_MATERIAL*)0x26c0c64,
+	(NJS_MATERIAL*)0x26ca4f4,
+	(NJS_MATERIAL*)0x26ca51c,
+	(NJS_MATERIAL*)0x26ca530,
+	(NJS_MATERIAL*)0x26ca580,
+	(NJS_MATERIAL*)0x26ccd74,
+	(NJS_MATERIAL*)0x26ccdd8,
+	(NJS_MATERIAL*)0x26ccdec,
+	(NJS_MATERIAL*)0x26cdc00,
+	(NJS_MATERIAL*)0x26cfc88,
+	(NJS_MATERIAL*)0x26cfc9c,
+	(NJS_MATERIAL*)0x26cfcb0,
+	(NJS_MATERIAL*)0x26d0d10,
+	(NJS_MATERIAL*)0x26d0d24,
+	(NJS_MATERIAL*)0x26d0d38,
+	(NJS_MATERIAL*)0x26d1d98,
+	(NJS_MATERIAL*)0x26d1dac,
+	(NJS_MATERIAL*)0x26d1dc0,
+	(NJS_MATERIAL*)0x26d1dd4,
+	(NJS_MATERIAL*)0x26d1de8,
+	(NJS_MATERIAL*)0x26d1dfc,
+	(NJS_MATERIAL*)0x26d75d8,
+	(NJS_MATERIAL*)0x26d75ec,
+	(NJS_MATERIAL*)0x26d7600,
+	(NJS_MATERIAL*)0x26d93f8,
+	(NJS_MATERIAL*)0x26d940c,
+	(NJS_MATERIAL*)0x26d9420,
+	(NJS_MATERIAL*)0x26d9434,
+	(NJS_MATERIAL*)0x26d9448,
+	(NJS_MATERIAL*)0x26db960,
+	(NJS_MATERIAL*)0x26db974,
+	(NJS_MATERIAL*)0x26db988,
+	(NJS_MATERIAL*)0x26db99c,
+	(NJS_MATERIAL*)0x26db9b0,
+	(NJS_MATERIAL*)0x26ddf20,
+	(NJS_MATERIAL*)0x26ddf34,
+	(NJS_MATERIAL*)0x26ddf48,
+	(NJS_MATERIAL*)0x26ddf5c,
+	(NJS_MATERIAL*)0x26ddf84,
+	(NJS_MATERIAL*)0x26ddf98,
+	(NJS_MATERIAL*)0x26dfc28,
+	(NJS_MATERIAL*)0x26dfc50,
+	(NJS_MATERIAL*)0x26dfc64,
+	(NJS_MATERIAL*)0x26e04a8,
+	(NJS_MATERIAL*)0x26e04bc,
+	(NJS_MATERIAL*)0x26e04d0,
+	(NJS_MATERIAL*)0x26e04e4,
+	(NJS_MATERIAL*)0x26e04f8,
+	(NJS_MATERIAL*)0x26e050c,
+	(NJS_MATERIAL*)0x26e0520,
+	(NJS_MATERIAL*)0x26e0534,
+	(NJS_MATERIAL*)0x26e2e38,
+	(NJS_MATERIAL*)0x26e2e4c,
+	(NJS_MATERIAL*)0x26e2e60,
+	(NJS_MATERIAL*)0x26e2e74,
+	(NJS_MATERIAL*)0x26e2e88,
+	(NJS_MATERIAL*)0x26e2e9c,
+	(NJS_MATERIAL*)0x26e2eb0,
+	(NJS_MATERIAL*)0x26e57d0,
+	(NJS_MATERIAL*)0x26e57e4,
+	(NJS_MATERIAL*)0x26e57f8,
+	(NJS_MATERIAL*)0x26ebc00,
+	(NJS_MATERIAL*)0x26ebc14,
+	(NJS_MATERIAL*)0x26ebc28,
+	(NJS_MATERIAL*)0x26ebc3c,
+	(NJS_MATERIAL*)0x26ebca0,
+	(NJS_MATERIAL*)0x26ee2f8,
+	(NJS_MATERIAL*)0x26ee30c,
+	(NJS_MATERIAL*)0x26ee320,
+	(NJS_MATERIAL*)0x26ee334,
+	(NJS_MATERIAL*)0x26ee348,
+	(NJS_MATERIAL*)0x26f0030,
+	(NJS_MATERIAL*)0x26f0044,
+	(NJS_MATERIAL*)0x26f0058,
+	(NJS_MATERIAL*)0x26f006c,
+	(NJS_MATERIAL*)0x26f11f8,
+	(NJS_MATERIAL*)0x26f120c,
+	(NJS_MATERIAL*)0x26f1220,
+	(NJS_MATERIAL*)0x26f1234,
+	(NJS_MATERIAL*)0x26f1248,
+	(NJS_MATERIAL*)0x26f125c,
+	(NJS_MATERIAL*)0x26f2560,
+	(NJS_MATERIAL*)0x26f2574,
+	(NJS_MATERIAL*)0x26f2588,
+	(NJS_MATERIAL*)0x26f259c,
+	(NJS_MATERIAL*)0x26f25b0,
+	(NJS_MATERIAL*)0x26f3770,
+	(NJS_MATERIAL*)0x26f3784,
+	(NJS_MATERIAL*)0x26f3798,
+	(NJS_MATERIAL*)0x26f37ac,
+	(NJS_MATERIAL*)0x26f4a30,
+	(NJS_MATERIAL*)0x26f6044,
+	(NJS_MATERIAL*)0x26f738c,
+	(NJS_MATERIAL*)0x26f88f8,
+
 	// Speed Highway Act 1
 	(NJS_MATERIAL*)0x25DABFC,
 	(NJS_MATERIAL*)0x25DD248,
@@ -178,6 +299,7 @@ NJS_MATERIAL* static_patches[] = {
 
 	// Speed Highway Act 3
 	(NJS_MATERIAL*)0x252d6a8,
+	(NJS_MATERIAL*)0x252d70c,
 	(NJS_MATERIAL*)0x250bb20,
 	(NJS_MATERIAL*)0x250bb98,
 	(NJS_MATERIAL*)0x250bbac,
@@ -236,6 +358,14 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1d28370,
 	(NJS_MATERIAL*)0x1d28384,
 	(NJS_MATERIAL*)0x1d29850,
+	(NJS_MATERIAL*)0x1d48190,
+	(NJS_MATERIAL*)0x1d481a4,
+	(NJS_MATERIAL*)0x1d481b8,
+	(NJS_MATERIAL*)0x1d481cc,
+	(NJS_MATERIAL*)0x1d4df68,
+	(NJS_MATERIAL*)0x1d4df7c,
+	(NJS_MATERIAL*)0x1d4df90,
+	(NJS_MATERIAL*)0x1d4dfa4,
 
 	// Final Egg Act 1
 	(NJS_MATERIAL*)0x1c01860,
@@ -260,6 +390,18 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1b879f4,
 	(NJS_MATERIAL*)0x1b87a08,
 	(NJS_MATERIAL*)0x1b87a1c,
+
+	// Holter Shelter Act 2
+	(NJS_MATERIAL*)0x18ef204,
+	(NJS_MATERIAL*)0x18ef814,
+	(NJS_MATERIAL*)0x18efe50,
+	(NJS_MATERIAL*)0x18f019c,
+	(NJS_MATERIAL*)0x18f04d0,
+	(NJS_MATERIAL*)0x18f06e8,
+	(NJS_MATERIAL*)0x1920b3c,
+	(NJS_MATERIAL*)0x1938724,
+	(NJS_MATERIAL*)0x1939274,
+	(NJS_MATERIAL*)0x194f550,
 };
 
 void FixMaterial(NJS_MATERIAL* material)
@@ -362,6 +504,9 @@ void PatchMaterials()
 	// Dynamic patches:
 
 	// Station Square landtables
+	FixMaterial((_OBJ_LANDTABLE*)LANDTABLESS[0], 37, 1);
+	FixMaterial((_OBJ_LANDTABLE*)LANDTABLESS[0], 37, 2);
+	FixMaterial((_OBJ_LANDTABLE*)LANDTABLESS[0], 38, 0);
 	FixMaterial((_OBJ_LANDTABLE*)LANDTABLESS[1], 254, 0);
 	FixMaterial((_OBJ_LANDTABLE*)LANDTABLESS[1], 254, 1);
 	FixMaterial((_OBJ_LANDTABLE*)LANDTABLESS[3], 48, 0);
@@ -395,10 +540,14 @@ void PatchMaterials()
 	FixMaterial((_OBJ_LANDTABLE*)LANDTABLEEC0[1], 72, 3);
 
 	// Egg Carrier Inside landtables
-	FixMaterials((_OBJ_LANDTABLE*)LANDTABLEEC3[4], 41); // Normals facing the wrong way, consider fixing them
+	FixMaterials((_OBJ_LANDTABLE*)LANDTABLEEC3[5], 41); // Normals facing the wrong way, consider fixing them
 
-	// Tails whiskers
+	// Tails whiskers/hair
+	FixMaterial(E102_OBJECTS[67], 0);
+	FixMaterial(E102_OBJECTS[68], 0);
+	FixMaterial(E102_OBJECTS[70], 0);
 	FixMaterial(MILES_MODELS[2], 0);
+	FixMaterial(MILES_MODELS[3], 0);
 	FixMaterial(MILES_MODELS[4], 0);
 
 	// Amy's Warrior Feather
