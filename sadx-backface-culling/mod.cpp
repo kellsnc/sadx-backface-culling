@@ -10,10 +10,21 @@ DataPointer(int, _nj_basic_cull_, 0x3D08490);
 
 FastThiscallHook<void, NJS_MATERIAL*> _njSetMaterial_h(0x784850);
 
+#ifdef _DEBUG
+static bool disable = false;
+#endif
+
 // Parse the doubled sided flag
 void _njSetMaterial_r(NJS_MATERIAL* material)
 {
 	_njSetMaterial_h.Original(material);
+
+#ifdef _DEBUG
+	if (disable)
+	{
+		return;
+	}
+#endif
 
 	int attrflags = material->attrflags;
 
@@ -53,6 +64,16 @@ extern "C"
 		PatchPolybuff(); // Patch quad and strips parser to have correct winding order
 		PatchMaterials();
 	}
+
+#ifdef _DEBUG
+	__declspec(dllexport) void __cdecl OnFrame()
+	{
+		if ((PressedButtons[0] & (Buttons_Y)) == (Buttons_Y))
+		{
+			disable = !disable;
+		}
+	}
+#endif
 
 	__declspec(dllexport) ModInfo SADXModInfo = { ModLoaderVer };
 }
