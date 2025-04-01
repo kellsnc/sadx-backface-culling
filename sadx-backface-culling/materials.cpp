@@ -4,6 +4,7 @@
 
 DataPointer(NJS_MATERIAL, matlist_itembox_boxbody_item_panel, 0x8BE1C8);
 DataPointer(NJS_MATERIAL, matlist_l01_wt_hebimizu_wt_hebimizu, 0x1FE4CC8);
+DataPointer(NJS_MATERIAL, matlist_sssikake_stationshutter_stationshutter, 0x2B05980);
 DataArray(NJS_MATERIAL, matlist_sssikake_elevator_elevator, 0x2AB652C, 2);
 DataArray(NJS_MATERIAL, matlist_fence00_fen01_fen01, 0x2693960, 4);
 DataArray(NJS_MATERIAL, matlist_jyotyu_kusa_kusa, 0x8C4184, 2);
@@ -19,10 +20,28 @@ DataArray(NJS_MATERIAL, matlist_kaitendai_daidai_daidai, 0x186DF00, 10);
 DataArray(NJS_MATERIAL, matlist_lostobj_terasu_terasu, 0x2006930, 4);
 DataArray(NJS_MATERIAL, matlist_poolparasol_poolparasol_poolparasol, 0x2ACBBE0, 12);
 DataArray(NJS_MATERIAL, matlist_newship_oya_oya, 0x27AB718, 9);
+DataArray(NJS_MATERIAL, matlist_newship_oya_bou1, 0x27AB028, 5);
+DataArray(NJS_MATERIAL, matlist_newship_oya_bou2, 0x27A67E8, 5);
+DataArray(NJS_MATERIAL, matlist_newship_oya_ship, 0x27A6ED8, 8);
 DataArray(NJS_MATERIAL, matlist_o_emblm_emblm, 0x9740E8, 5);
 DataArray(NJS_MATERIAL, matlist_fun_funflot_funflot, 0x1A2EA70, 7);
 DataArray(NJS_MATERIAL, matlist_fun_funflot_hane, 0x1A2E638, 3);
 DataArray(NJS_MATERIAL, matlist_fence_parksaku_parksaku, 0x27A24B0, 5);
+DataArray(NJS_MATERIAL, matlist_lv3nanim_mo_fund_mo_fund, 0x1B92FBC, 3);
+DataPointer(NJS_MATERIAL, matlist_cs2_nc_koujyou_cyl185, 0x307E080);
+DataPointer(NJS_MATERIAL, matlist_zangai_cs2_nc_zangai_e_rf12, 0x3092290);
+DataPointer(NJS_MATERIAL, matlist_zangai_cs2_nc_zangai_e_ra11, 0x3094968);
+DataArray(NJS_MATERIAL, matlist_zangai_cs2_nc_zangai_e_rf13, 0x3091950, 2);
+DataPointer(NJS_MATERIAL, matlist_zangai_cs2_nc_zangai_e_ra10, 0x3094AF8);
+DataArray(NJS_MATERIAL, matlist_kowarekabe_mae_mae, 0x1A116C0, 10);
+DataArray(NJS_MATERIAL, matlist_kanban_eggkanban_eggkanban, 0x1C26FBC, 3);
+DataPointer(NJS_MATERIAL, matlist_cloud_kumo_b_kumo_b, 0x214CA18);
+DataArray(NJS_MATERIAL, matlist_rocket_hontai_2nd_body_bmerge7, 0x8C1898, 8);
+DataArray(NJS_MATERIAL, matlist_rocket_hontai_2nd_body_bmerge6, 0x8C1048, 8);
+DataArray(NJS_MATERIAL, matlist_rocket_hontai_2nd_body_bmerge20, 0x8C0800, 8);
+DataArray(NJS_MATERIAL, matlist_rocket_hontai_2nd_body_bmerge18, 0x8BFFB0, 8);
+DataPointer(NJS_MATERIAL, matlist_ironball_typeb_torus5_torus5, 0x8B7A38);
+DataArray(NJS_MATERIAL, matlist_windobj_haneobj_a_haneobj_a, 0xC28E68, 5);
 
 DataPointer(TaskInfo, Rd_MiniCart__RdTaskInfo, 0x7E7314);
 FunctionPointer(void, Rd_MiniCart__initRound, (task* tp, void* param_p), 0x4DAB30);
@@ -31,6 +50,15 @@ TaskFunc(Rd_MiniCart__deadRound, 0x61CA80);
 NJS_MATERIAL* static_patches[] = {
 	// Itembox item card
 	&matlist_itembox_boxbody_item_panel,
+
+	// Rocket
+	&matlist_rocket_hontai_2nd_body_bmerge7[3],
+	&matlist_rocket_hontai_2nd_body_bmerge6[3],
+	&matlist_rocket_hontai_2nd_body_bmerge20[3],
+	&matlist_rocket_hontai_2nd_body_bmerge18[3],
+
+	// Iron Ball chains
+	&matlist_ironball_typeb_torus5_torus5,
 
 	// Weed
 	&matlist_jyotyu_kusa_kusa[0],
@@ -51,9 +79,30 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_poolparasol_poolparasol_poolparasol[10],
 	&matlist_poolparasol_poolparasol_poolparasol[11],
 
+	// Station Square shutter
+	&matlist_sssikake_stationshutter_stationshutter,
+
+	// Egg Carrier Factory (meshes need fixing for 16:9)
+	&matlist_cs2_nc_koujyou_cyl185,
+	&matlist_zangai_cs2_nc_zangai_e_rf12,
+	&matlist_zangai_cs2_nc_zangai_e_ra11,
+	&matlist_zangai_cs2_nc_zangai_e_rf13[1],
+	&matlist_zangai_cs2_nc_zangai_e_ra10,
+
+	// Windy Valley windmills
+	&matlist_windobj_haneobj_a_haneobj_a[1],
+	&matlist_windobj_haneobj_a_haneobj_a[4],
+
 	// Twinkle Park ship
 	&matlist_newship_oya_oya[6],
 	&matlist_newship_oya_oya[7],
+	&matlist_newship_oya_bou1[0],
+	&matlist_newship_oya_bou1[3],
+	&matlist_newship_oya_bou2[0],
+	&matlist_newship_oya_bou2[3],
+	&matlist_newship_oya_ship[1],
+	&matlist_newship_oya_ship[2],
+	&matlist_newship_oya_ship[3],
 
 	// Twinkle Park gate
 	&matlist_fence_parksaku_parksaku[4],
@@ -64,6 +113,29 @@ NJS_MATERIAL* static_patches[] = {
 
 	// Red Mountain barriers
 	&matlist_saku_saku_saku[1],
+
+	// Sky Deck Decals
+	(NJS_MATERIAL*)0x21fdea8,
+	(NJS_MATERIAL*)0x21fdfb4,
+	(NJS_MATERIAL*)0x21fe0c0,
+	(NJS_MATERIAL*)0x21fe1cc,
+	(NJS_MATERIAL*)0x21fe2d8,
+	(NJS_MATERIAL*)0x21fe3e4,
+	(NJS_MATERIAL*)0x21fe4f0,
+	(NJS_MATERIAL*)0x21fe5fc,
+	(NJS_MATERIAL*)0x21fe708,
+	(NJS_MATERIAL*)0x21fe814,
+	(NJS_MATERIAL*)0x21fdd9c,
+	(NJS_MATERIAL*)0x21fe920,
+	(NJS_MATERIAL*)0x21fea2c,
+	(NJS_MATERIAL*)0x21feb38,
+	(NJS_MATERIAL*)0x21fec44,
+	(NJS_MATERIAL*)0x21fed50,
+	(NJS_MATERIAL*)0x21fee5c,
+	(NJS_MATERIAL*)0x21fef68,
+
+	// Sky Deck clouds
+	&matlist_cloud_kumo_b_kumo_b,
 
 	// Lost World Mural room poles
 	&matlist_lostobj_terasu_terasu[0],
@@ -105,38 +177,52 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_fun_funflot_hane[1],
 	&matlist_fun_funflot_hane[2],
 
+	// Final Egg decorative wall (placed inverted at Gamma's start)
+	&matlist_kowarekabe_mae_mae[0],
+	&matlist_kowarekabe_mae_mae[1],
+	&matlist_kowarekabe_mae_mae[2],
+	&matlist_kowarekabe_mae_mae[3],
+	&matlist_kowarekabe_mae_mae[4],
+	&matlist_kowarekabe_mae_mae[5],
+	&matlist_kowarekabe_mae_mae[6],
+	&matlist_kowarekabe_mae_mae[8],
+
+	// Final Egg decorative pnanel (kanban)
+	&matlist_kanban_eggkanban_eggkanban[0],
+	&matlist_kanban_eggkanban_eggkanban[1],
+
 	// Hot Shelter elevator
 	&matlist_kaitendai_daidai_daidai[5],
 	
+	// Emerald Coast Act 3 (wrong face orientation, consider fixing mesh)
+	(NJS_MATERIAL*)0xebe5a8,
+	(NJS_MATERIAL*)0xebe5bc,
+	(NJS_MATERIAL*)0xebe5d0,
+	(NJS_MATERIAL*)0xebe5e4,
+
 	// Windy Valley Act 2
 	(NJS_MATERIAL*)0xb81324,
 
 	// Windy Valley Act 3
 	(NJS_MATERIAL*)0xb14908,
 	(NJS_MATERIAL*)0xb14c00,
-	(NJS_MATERIAL*)0xb14c14,
 	(NJS_MATERIAL*)0xb14c28,
 	(NJS_MATERIAL*)0xb150d4,
 	(NJS_MATERIAL*)0xb150e8,
 	(NJS_MATERIAL*)0xb1b200,
-	(NJS_MATERIAL*)0xb1b214,
 	(NJS_MATERIAL*)0xb1b228,
 	(NJS_MATERIAL*)0xb1b6d8,
-	(NJS_MATERIAL*)0xb1b6ec,
 	(NJS_MATERIAL*)0xb1b700,
 	(NJS_MATERIAL*)0xb1b714,
 	(NJS_MATERIAL*)0xb20008,
 	(NJS_MATERIAL*)0xb2001c,
 	(NJS_MATERIAL*)0xb215f8,
-	(NJS_MATERIAL*)0xb2160c,
 	(NJS_MATERIAL*)0xb22598,
 	(NJS_MATERIAL*)0xb225ac,
 	(NJS_MATERIAL*)0xb243f0,
-	(NJS_MATERIAL*)0xb24404,
 	(NJS_MATERIAL*)0xb259f0,
 	(NJS_MATERIAL*)0xb25a04,
 	(NJS_MATERIAL*)0xb28128,
-	(NJS_MATERIAL*)0xb2813c,
 	(NJS_MATERIAL*)0xb29d58,
 	(NJS_MATERIAL*)0xb29d6c,
 	(NJS_MATERIAL*)0xb2b750,
@@ -149,25 +235,24 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0xb2f018,
 	(NJS_MATERIAL*)0xb2f02c,
 	(NJS_MATERIAL*)0xb316a0,
-	(NJS_MATERIAL*)0xb316b4,
 	(NJS_MATERIAL*)0xb316c8,
 	(NJS_MATERIAL*)0xb33378,
 	(NJS_MATERIAL*)0xb3338c,
 	(NJS_MATERIAL*)0xb333a0,
+	(NJS_MATERIAL*)0xb333dc,
 	(NJS_MATERIAL*)0xb353e8,
-	(NJS_MATERIAL*)0xb353fc,
 	(NJS_MATERIAL*)0xb3622c,
 	(NJS_MATERIAL*)0xb36240,
 	(NJS_MATERIAL*)0xb3e500,
-	(NJS_MATERIAL*)0xb3e514,
 	(NJS_MATERIAL*)0xb3e528,
 	(NJS_MATERIAL*)0xb44698,
 	(NJS_MATERIAL*)0xb446ac,
 	(NJS_MATERIAL*)0xb462a8,
-	(NJS_MATERIAL*)0xb462bc,
 	(NJS_MATERIAL*)0xb4771c,
+	(NJS_MATERIAL*)0xb47730,
 	(NJS_MATERIAL*)0xb48a7c,
 	(NJS_MATERIAL*)0xb48a90,
+	(NJS_MATERIAL*)0xb498d4,
 	(NJS_MATERIAL*)0xb498e8,
 	(NJS_MATERIAL*)0xb4a2e4,
 	(NJS_MATERIAL*)0xb4a2f8,
@@ -289,6 +374,22 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x26f6044,
 	(NJS_MATERIAL*)0x26f738c,
 	(NJS_MATERIAL*)0x26f88f8,
+	(NJS_MATERIAL*)0x26f890c,
+	(NJS_MATERIAL*)0x26f8920,
+	(NJS_MATERIAL*)0x26f8948,
+	(NJS_MATERIAL*)0x26f8984,
+	(NJS_MATERIAL*)0x26f8998,
+	(NJS_MATERIAL*)0x26f89ac,
+	(NJS_MATERIAL*)0x26cce00,
+	(NJS_MATERIAL*)0x26ddf70,
+	(NJS_MATERIAL*)0x26dfc3c,
+	(NJS_MATERIAL*)0x26f4a6c,
+	(NJS_MATERIAL*)0x26f72d8,
+	(NJS_MATERIAL*)0x26f73c8,
+
+	// Twinkle Park At 2
+	(NJS_MATERIAL*)0x279a954,
+	(NJS_MATERIAL*)0x279acb4,
 
 	// Speed Highway Act 1
 	(NJS_MATERIAL*)0x25DABFC,
@@ -345,6 +446,14 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1f79d1c,
 	(NJS_MATERIAL*)0x1f79d30,
 
+	// Ice Cap Act 4
+	(NJS_MATERIAL*)0xdc5b14,
+	(NJS_MATERIAL*)0xdc6c70,
+	(NJS_MATERIAL*)0xdc7a10,
+	(NJS_MATERIAL*)0xdd9e64,
+	(NJS_MATERIAL*)0xdd30fc,
+	(NJS_MATERIAL*)0xdd38e8,
+
 	// Casinopolis Act 1
 	(NJS_MATERIAL*)0x1d4b868,
 	(NJS_MATERIAL*)0x1d58f68,
@@ -375,7 +484,16 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1a95e04,
 	(NJS_MATERIAL*)0x1a95e18,
 
-	// Final Egg Act 3 (normals facing the wrong way, consider fixing them)
+	// Wrong face orientation, consider fixing mesh
+	(NJS_MATERIAL*)0x1c0db60,
+	(NJS_MATERIAL*)0x1c0db74,
+	(NJS_MATERIAL*)0x1c0db88,
+	(NJS_MATERIAL*)0x1c0db9c,
+	(NJS_MATERIAL*)0x1c0dbb0,
+	(NJS_MATERIAL*)0x1c0dbc4,
+	(NJS_MATERIAL*)0x1c0dbd8,
+
+	// Final Egg Act 3 (wrong face orientation, consider fixing mesh)
 	(NJS_MATERIAL*)0x1b87918,
 	(NJS_MATERIAL*)0x1b8792c,
 	(NJS_MATERIAL*)0x1b87940,
@@ -390,6 +508,7 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1b879f4,
 	(NJS_MATERIAL*)0x1b87a08,
 	(NJS_MATERIAL*)0x1b87a1c,
+	(NJS_MATERIAL*)0x1b92fd0,
 
 	// Holter Shelter Act 2
 	(NJS_MATERIAL*)0x18ef204,
@@ -540,18 +659,28 @@ void PatchMaterials()
 	FixMaterial((_OBJ_LANDTABLE*)LANDTABLEEC0[1], 72, 3);
 
 	// Egg Carrier Inside landtables
-	FixMaterials((_OBJ_LANDTABLE*)LANDTABLEEC3[5], 41); // Normals facing the wrong way, consider fixing them
+	FixMaterials((_OBJ_LANDTABLE*)LANDTABLEEC3[5], 41); // Wrong face orientation, consider fixing mesh
 
 	// Tails whiskers/hair
-	FixMaterial(E102_OBJECTS[67], 0);
-	FixMaterial(E102_OBJECTS[68], 0);
-	FixMaterial(E102_OBJECTS[70], 0);
+	FixMaterial(MILES_OBJECTS[67], 0);
+	FixMaterial(MILES_OBJECTS[68], 0);
+	FixMaterial(MILES_OBJECTS[70], 0);
 	FixMaterial(MILES_MODELS[2], 0);
 	FixMaterial(MILES_MODELS[3], 0);
 	FixMaterial(MILES_MODELS[4], 0);
 
 	// Amy's Warrior Feather
 	FixMaterial(AMY_OBJECTS[35], 1);
+
+	// Big's whiskers, fur and belt
+	FixMaterial(BIG_OBJECTS[27]->getnode(5), 0); // Head
+	FixMaterial(BIG_OBJECTS[27]->getnode(6), 0); // Head
+	FixMaterial(BIG_OBJECTS[28]->getnode(1), 0); // EV Head
+	FixMaterial(BIG_OBJECTS[28]->getnode(4), 0); // EV Head
+	FixMaterial(BIG_OBJECTS[31], 1); // Life belt
+	FixMaterial(BIG_OBJECTS[35]->getnode(2), 1); // Normal rod reel
+	FixMaterial(BIG_OBJECTS[36]->getnode(2), 1); // Power Rod reel
+	FixMaterials(BIG_OBJECTS[42]); // Cast circle
 
 	// Gamma's light
 	FixMaterial(E102_OBJECTS[0]->getnode(76), 0);
@@ -572,6 +701,21 @@ void PatchMaterials()
 	FixPastNPC(ADV03_ACTIONS[4]);
 	FixPastNPC(ADV03_ACTIONS[5]);
 	FixPastNPC(ADV03_ACTIONS[6]);
+
+	// Pachacamac
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(4), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(41), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(42), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(45), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(46), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(69), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(70), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(71), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(72), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(75), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(76), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(79), 0);
+	FixMaterial(ADV03_ACTIONS[7]->object->getnode(80), 0);
 
 	// Disable in Twinkle Circuit, everything should be double sided
 	Rd_MiniCart__RdTaskInfo.init_p = Rd_MiniCart__initRound_r;
