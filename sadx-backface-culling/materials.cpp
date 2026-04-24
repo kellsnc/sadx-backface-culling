@@ -42,6 +42,26 @@ DataArray(NJS_MATERIAL, matlist_rocket_hontai_2nd_body_bmerge20, 0x8C0800, 8);
 DataArray(NJS_MATERIAL, matlist_rocket_hontai_2nd_body_bmerge18, 0x8BFFB0, 8);
 DataPointer(NJS_MATERIAL, matlist_ironball_typeb_torus5_torus5, 0x8B7A38);
 DataArray(NJS_MATERIAL, matlist_windobj_haneobj_a_haneobj_a, 0xC28E68, 5);
+DataArray(NJS_MATERIAL, matlist_slight_base_light, 0x267DE48, 3);
+DataArray(NJS_MATERIAL, matlist_fence02_fen02_fen02, 0x26929B0, 4);
+DataArray(NJS_MATERIAL, matlist_suisoukazari1a_hontai_hontai, 0x1818910, 4);
+DataArray(NJS_MATERIAL, matlist_suisoukazari2a_hontai_hontai, 0x18174B8, 6);
+DataPointer(NJS_MATERIAL, matlist_suimen_wt_bigcircle_wt_bigcircle, 0x1810150);
+DataArray(NJS_MATERIAL, matlist_hsgo_hasigo_hasigo, 0x1A3D918, 10);
+DataArray(NJS_MATERIAL, matlist_lastobj_taki_taki, 0x146CFD0, 3);
+DataArray(NJS_MATERIAL, matlist_ssobj_signal_signal, 0x2ABF690, 11);
+DataArray(NJS_MATERIAL, matlist_sskuruma2_body_body, 0x2AEF3C8, 2);
+DataArray(NJS_MATERIAL, matlist_train_base_yane, 0x2AE52A0, 13);
+DataArray(NJS_MATERIAL, matlist_train_base_bmerge19, 0x2AE0978, 14);
+DataArray(NJS_MATERIAL, matlist_train_base_cube32, 0x2ADD21C, 3);
+DataArray(NJS_MATERIAL, matlist_train_base_cube33, 0x2ADC004, 3);
+DataArray(NJS_MATERIAL, matlist_tobira_hot_door1h_door1h, 0x1812910, 3);
+DataArray(NJS_MATERIAL, matlist_cp_ic_objice_l_objice_l, 0xE7DA18, 3);
+DataArray(NJS_MATERIAL, matlist_cp_ic_objice_m01_objice_m01, 0xE7F978, 3);
+DataArray(NJS_MATERIAL, matlist_cp_ic_objice_m02_objice_m02, 0xE81648, 3);
+DataArray(NJS_MATERIAL, matlist_park02_bowldoor_bowldoor, 0x27ACCE0, 5);
+DataArray(NJS_MATERIAL, matlist_signboard_board_board, 0x266409C, 3);
+DataArray(NJS_MATERIAL, matlist_tpobj_slight2_slight2, 0x38C3CD0, 6);
 
 DataPointer(TaskInfo, Rd_MiniCart__RdTaskInfo, 0x7E7314);
 FunctionPointer(void, Rd_MiniCart__initRound, (task* tp, void* param_p), 0x4DAB30);
@@ -104,12 +124,36 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_newship_oya_ship[2],
 	&matlist_newship_oya_ship[3],
 
+	// Twinkle Park light prop
+	&matlist_tpobj_slight2_slight2[3],
+	&matlist_tpobj_slight2_slight2[4],
+	&matlist_tpobj_slight2_slight2[5],
+
 	// Twinkle Park gate
 	&matlist_fence_parksaku_parksaku[4],
 
-	// Speed Highway blue fence
+	// Twinkle Park Bowling Door
+	&matlist_park02_bowldoor_bowldoor[0],
+	&matlist_park02_bowldoor_bowldoor[1],
+	&matlist_park02_bowldoor_bowldoor[2],
+	&matlist_park02_bowldoor_bowldoor[3],
+	&matlist_park02_bowldoor_bowldoor[4],
+
+	// Speed Highway fences
 	&matlist_fence00_fen01_fen01[0],
 	&matlist_fence00_fen01_fen01[3],
+	&matlist_fence02_fen02_fen02[0],
+	&matlist_fence02_fen02_fen02[1],
+	&matlist_fence02_fen02_fen02[3],
+
+	// Speed Highway projectors
+	&matlist_slight_base_light[0],
+	&matlist_slight_base_light[1],
+
+	// Speed Highway Signboards
+	&matlist_signboard_board_board[0],
+	&matlist_signboard_board_board[1],
+	&matlist_signboard_board_board[2],
 
 	// Red Mountain barriers
 	&matlist_saku_saku_saku[1],
@@ -158,6 +202,14 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_obj_kusari_obj_kusari[0],
 	&matlist_obj_kusari_obj_kusari[1],
 
+	// Ice Cap breakable ice
+	&matlist_cp_ic_objice_l_objice_l[1],
+	&matlist_cp_ic_objice_l_objice_l[2],
+	&matlist_cp_ic_objice_m01_objice_m01[1],
+	&matlist_cp_ic_objice_m01_objice_m01[2],
+	&matlist_cp_ic_objice_m02_objice_m02[1],
+	&matlist_cp_ic_objice_m02_objice_m02[2],
+
 	// Final Egg moving platform
 	&matlist_uki_uki_uki[0],
 	&matlist_uki_uki_uki[2],
@@ -193,6 +245,47 @@ NJS_MATERIAL* static_patches[] = {
 
 	// Hot Shelter elevator
 	&matlist_kaitendai_daidai_daidai[5],
+
+	// Hot Shelter glass decoration
+	&matlist_suisoukazari1a_hontai_hontai[1],
+	&matlist_suisoukazari1a_hontai_hontai[2],
+	&matlist_suisoukazari2a_hontai_hontai[2],
+
+	// Hot Shelter Aquarium raising water
+	&matlist_suimen_wt_bigcircle_wt_bigcircle,
+
+	// Hot Shelter door
+	&matlist_tobira_hot_door1h_door1h[0],
+
+	// Perfect Chaos waterfalls
+	&matlist_lastobj_taki_taki[1],
+	&matlist_lastobj_taki_taki[2],
+
+	// Station Square traffic lights
+	&matlist_ssobj_signal_signal[0],
+	&matlist_ssobj_signal_signal[2],
+	&matlist_ssobj_signal_signal[5],
+	&matlist_ssobj_signal_signal[10],
+
+	// Station Square car
+	&matlist_sskuruma2_body_body[0],
+
+	// Station Square train
+	&matlist_train_base_yane[7],
+	&matlist_train_base_yane[8],
+	&matlist_train_base_yane[9],
+	&matlist_train_base_bmerge19[2],
+	&matlist_train_base_bmerge19[4],
+	&matlist_train_base_bmerge19[5],
+	&matlist_train_base_bmerge19[8],
+	&matlist_train_base_bmerge19[9],
+	&matlist_train_base_bmerge19[10],
+	&matlist_train_base_bmerge19[11],
+	&matlist_train_base_bmerge19[12],
+	&matlist_train_base_cube32[1],
+	&matlist_train_base_cube32[2],
+	&matlist_train_base_cube33[1],
+	&matlist_train_base_cube33[2],
 	
 	// Emerald Coast Act 3 (wrong face orientation, consider fixing mesh)
 	(NJS_MATERIAL*)0xebe5a8,
@@ -262,6 +355,16 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0xb5133c,
 	(NJS_MATERIAL*)0xb56188,
 	(NJS_MATERIAL*)0xb5619c,
+	(NJS_MATERIAL*)0xb316b4,
+	(NJS_MATERIAL*)0xb462bc,
+	(NJS_MATERIAL*)0xb14c14,
+	(NJS_MATERIAL*)0xb3e514,
+	(NJS_MATERIAL*)0xb353fc,
+	(NJS_MATERIAL*)0xb1b6ec,
+	(NJS_MATERIAL*)0xb2813c,
+	(NJS_MATERIAL*)0xb24404,
+	(NJS_MATERIAL*)0xb2160c,
+	(NJS_MATERIAL*)0xb1b214,
 
 	// Twinkle Park Act 1
 	(NJS_MATERIAL*)0x26b9968,
@@ -387,9 +490,11 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x26f72d8,
 	(NJS_MATERIAL*)0x26f73c8,
 
-	// Twinkle Park At 2
+	// Twinkle Park Act 2
 	(NJS_MATERIAL*)0x279a954,
 	(NJS_MATERIAL*)0x279acb4,
+	(NJS_MATERIAL*)0x2758f88,
+	(NJS_MATERIAL*)0x275d5f4,
 
 	// Speed Highway Act 1
 	(NJS_MATERIAL*)0x25DABFC,
@@ -437,6 +542,18 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x238a98c,
 	(NJS_MATERIAL*)0x238a9a0,
 
+	// Sky Deck Act 3
+	(NJS_MATERIAL*)0x208ccb4,
+	(NJS_MATERIAL*)0x20976a8,
+	(NJS_MATERIAL*)0x20976bc,
+	(NJS_MATERIAL*)0x20976d0,
+	(NJS_MATERIAL*)0x20986b0,
+	(NJS_MATERIAL*)0x20986c4,
+	(NJS_MATERIAL*)0x20986d8,
+	(NJS_MATERIAL*)0x20996b8,
+	(NJS_MATERIAL*)0x20996cc,
+	(NJS_MATERIAL*)0x20996e0,
+
 	// Lost World Act 1
 	(NJS_MATERIAL*)0x1f79cb8,
 	(NJS_MATERIAL*)0x1f79ccc,
@@ -479,10 +596,17 @@ NJS_MATERIAL* static_patches[] = {
 	// Final Egg Act 1
 	(NJS_MATERIAL*)0x1c01860,
 	(NJS_MATERIAL*)0x1c0189c,
+	(NJS_MATERIAL*)0x1bdbc60,
 
 	// Final Egg Act 2
 	(NJS_MATERIAL*)0x1a95e04,
 	(NJS_MATERIAL*)0x1a95e18,
+	(NJS_MATERIAL*)0x1a7e750,
+	(NJS_MATERIAL*)0x1ac1e04,
+
+	// Final Egg Act 3
+	(NJS_MATERIAL*)0x1afb374,
+	(NJS_MATERIAL*)0x1afb388,
 
 	// Wrong face orientation, consider fixing mesh
 	(NJS_MATERIAL*)0x1c0db60,
@@ -510,6 +634,10 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1b87a1c,
 	(NJS_MATERIAL*)0x1b92fd0,
 
+	// Hot Shelter Act 1
+	(NJS_MATERIAL*)0x19899b8,
+	(NJS_MATERIAL*)0x19899e0,
+
 	// Holter Shelter Act 2
 	(NJS_MATERIAL*)0x18ef204,
 	(NJS_MATERIAL*)0x18ef814,
@@ -521,6 +649,40 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x1938724,
 	(NJS_MATERIAL*)0x1939274,
 	(NJS_MATERIAL*)0x194f550,
+	(NJS_MATERIAL*)0x18f0160,
+	(NJS_MATERIAL*)0x18f0174,
+	(NJS_MATERIAL*)0x18f0188,
+	(NJS_MATERIAL*)0x18f06fc,
+	(NJS_MATERIAL*)0x18ef1f0,
+	(NJS_MATERIAL*)0x18ef218,
+	(NJS_MATERIAL*)0x18f04a8,
+	(NJS_MATERIAL*)0x18f04bc,
+	(NJS_MATERIAL*)0x18ef800,
+	(NJS_MATERIAL*)0x18ef828,
+	(NJS_MATERIAL*)0x18ef83c,
+	(NJS_MATERIAL*)0x18efe28,
+	(NJS_MATERIAL*)0x18efe3c,
+
+	// Hot Shelter Act 3
+	(NJS_MATERIAL*)0x18b0794,
+	(NJS_MATERIAL*)0x18b07a8,
+	(NJS_MATERIAL*)0x18b07bc,
+	(NJS_MATERIAL*)0x18b0da8,
+	(NJS_MATERIAL*)0x18b0dbc,
+	(NJS_MATERIAL*)0x18b0dd0,
+	(NJS_MATERIAL*)0x18b0de4,
+	(NJS_MATERIAL*)0x18b13d0,
+	(NJS_MATERIAL*)0x18b13e4,
+	(NJS_MATERIAL*)0x18b13f8,
+	(NJS_MATERIAL*)0x18b1708,
+	(NJS_MATERIAL*)0x18b171c,
+	(NJS_MATERIAL*)0x18b1730,
+	(NJS_MATERIAL*)0x18b1744,
+	(NJS_MATERIAL*)0x18b1a50,
+	(NJS_MATERIAL*)0x18b1a64,
+	(NJS_MATERIAL*)0x18b1a78,
+	(NJS_MATERIAL*)0x18b1c90,
+	(NJS_MATERIAL*)0x18b1ca4,
 };
 
 void FixMaterial(NJS_MATERIAL* material)
@@ -672,12 +834,13 @@ void PatchMaterials()
 	// Amy's Warrior Feather
 	FixMaterial(AMY_OBJECTS[35], 1);
 
-	// Big's whiskers, fur and belt
+	// Big
 	FixMaterial(BIG_OBJECTS[27]->getnode(5), 0); // Head
 	FixMaterial(BIG_OBJECTS[27]->getnode(6), 0); // Head
 	FixMaterial(BIG_OBJECTS[28]->getnode(1), 0); // EV Head
 	FixMaterial(BIG_OBJECTS[28]->getnode(4), 0); // EV Head
-	FixMaterial(BIG_OBJECTS[31], 1); // Life belt
+	FixMaterials(BIG_OBJECTS[31]); // Belly with life belt
+	FixMaterials(BIG_OBJECTS[32]); // Belly
 	FixMaterial(BIG_OBJECTS[35]->getnode(2), 1); // Normal rod reel
 	FixMaterial(BIG_OBJECTS[36]->getnode(2), 1); // Power Rod reel
 	FixMaterials(BIG_OBJECTS[42]); // Cast circle
@@ -716,6 +879,23 @@ void PatchMaterials()
 	FixMaterial(ADV03_ACTIONS[7]->object->getnode(76), 0);
 	FixMaterial(ADV03_ACTIONS[7]->object->getnode(79), 0);
 	FixMaterial(ADV03_ACTIONS[7]->object->getnode(80), 0);
+
+	// MR Train
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(3), 7);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(3), 8);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(3), 9);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 2);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 4);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 5);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 8);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 9);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 10);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 11);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(4), 12);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(12), 1);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(12), 2);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(15), 1);
+	FixMaterial(ADV02_ACTIONS[10]->object->getnode(15), 2);
 
 	// Disable in Twinkle Circuit, everything should be double sided
 	Rd_MiniCart__RdTaskInfo.init_p = Rd_MiniCart__initRound_r;
