@@ -62,6 +62,14 @@ DataArray(NJS_MATERIAL, matlist_cp_ic_objice_m02_objice_m02, 0xE81648, 3);
 DataArray(NJS_MATERIAL, matlist_park02_bowldoor_bowldoor, 0x27ACCE0, 5);
 DataArray(NJS_MATERIAL, matlist_signboard_board_board, 0x266409C, 3);
 DataArray(NJS_MATERIAL, matlist_tpobj_slight2_slight2, 0x38C3CD0, 6);
+DataArray(NJS_MATERIAL, matlist_rhino_fcover, 0x38C8EB0, 2);
+DataArray(NJS_MATERIAL, matlist_rhino_jet, 0x38CCA74, 1);
+DataArray(NJS_MATERIAL, matlist_gearset_qnaka_wall_qnaka_wall, 0x247AC28, 1);
+DataArray(NJS_MATERIAL, matlist_gearset_qnaka_wall_naka_wallb, 0x2479F10, 1);
+DataArray(NJS_MATERIAL, matlist_gearset_qnaka_wall_bmerge1, 0x24757E0, 5);
+DataArray(NJS_MATERIAL, matlist_gearset_qnaka_wall_bmerge2, 0x2474AE0, 5);
+DataArray(NJS_MATERIAL, matlist_gearset_qnaka_wall_bmerge3, 0x24764E0, 5);
+DataArray(NJS_MATERIAL, matlist_gearset_qnaka_wall_bmerge4, 0x24771E0, 5);
 
 DataPointer(TaskInfo, Rd_MiniCart__RdTaskInfo, 0x7E7314);
 FunctionPointer(void, Rd_MiniCart__initRound, (task* tp, void* param_p), 0x4DAB30);
@@ -90,6 +98,10 @@ NJS_MATERIAL* static_patches[] = {
 	&matlist_o_emblm_emblm[2],
 	&matlist_o_emblm_emblm[3],
 	&matlist_o_emblm_emblm[4],
+
+	// Rhinotank
+	&matlist_rhino_fcover[0],
+	&matlist_rhino_jet[0],
 
 	// Station Square poolside parasol & glass
 	&matlist_poolparasol_poolparasol_poolparasol[1],
@@ -157,6 +169,18 @@ NJS_MATERIAL* static_patches[] = {
 
 	// Red Mountain barriers
 	&matlist_saku_saku_saku[1],
+
+	// Red Mountain gear
+	&matlist_gearset_qnaka_wall_qnaka_wall[0],
+	&matlist_gearset_qnaka_wall_naka_wallb[0],
+	&matlist_gearset_qnaka_wall_bmerge1[0],
+	&matlist_gearset_qnaka_wall_bmerge1[1],
+	&matlist_gearset_qnaka_wall_bmerge2[0],
+	&matlist_gearset_qnaka_wall_bmerge2[1],
+	&matlist_gearset_qnaka_wall_bmerge3[0],
+	&matlist_gearset_qnaka_wall_bmerge3[1],
+	&matlist_gearset_qnaka_wall_bmerge4[0],
+	&matlist_gearset_qnaka_wall_bmerge4[1],
 
 	// Sky Deck Decals
 	(NJS_MATERIAL*)0x21fdea8,
@@ -541,6 +565,9 @@ NJS_MATERIAL* static_patches[] = {
 	(NJS_MATERIAL*)0x238a978,
 	(NJS_MATERIAL*)0x238a98c,
 	(NJS_MATERIAL*)0x238a9a0,
+
+	// Red Mountain Act 2
+	(NJS_MATERIAL*)0x22d9528,
 
 	// Sky Deck Act 3
 	(NJS_MATERIAL*)0x208ccb4,
